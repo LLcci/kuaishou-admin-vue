@@ -4,10 +4,11 @@ export const user = {
   page: 'kuaishou/user/page',
   update: 'kuaishou/user/update',
   delete: 'kuaishou/user/delete',
+  list: 'kuaishou/user/list',
 } as const;
 
 export const values = Object.values(user);
 
-export type SysUserPerms = (typeof values)[number];
+export type UserPerms = (typeof values)[number];
 
 export default user;
