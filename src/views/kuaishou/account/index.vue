@@ -2,7 +2,11 @@
   <div>
     <DynamicTable :search="true" :data-request="page" :columns="columns">
       <template #toolbar>
-        <a-button type="primary" :disabled="!$auth('kuaishou.user.add')" @click="openUserModal({})">
+        <a-button
+          type="primary"
+          :disabled="!$auth('kuaishou.account.add')"
+          @click="openUserModal({})"
+        >
           <PlusOutlined /> 新增
         </a-button>
       </template>

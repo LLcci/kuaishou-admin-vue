@@ -3,7 +3,7 @@
     <router-view #="{ Component }">
       <component :is="Component" />
     </router-view>
-    <LockScreen />
+    <!-- <LockScreen /> -->
   </ProConfigProvider>
 </template>
 
@@ -11,7 +11,7 @@
   import { watchEffect } from 'vue';
   import { useRoute } from 'vue-router';
   import { transformI18n } from './hooks/useI18n';
-  import { LockScreen } from '@/components/basic/lockscreen';
+  // import { LockScreen } from '@/components/basic/lockscreen';
 
   const route = useRoute();
 
