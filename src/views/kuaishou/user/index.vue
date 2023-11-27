@@ -49,6 +49,7 @@
     {
       title: 'cookies',
       dataIndex: 'cookies',
+      ellipsis: true,
       align: 'center',
     },
     {

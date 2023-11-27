@@ -66,6 +66,28 @@
         align: 'center',
       },
       {
+        title: '全站数据',
+        dataIndex: 'allStation',
+        align: 'center',
+        width: 200,
+        formItemProps: {
+          component: 'Select',
+          componentProps: {
+            options: [
+              { value: 1, label: '显示' },
+              { value: 0, label: '隐藏' },
+            ],
+          },
+        },
+        customRender: ({ record }) => {
+          if (record.allStation == 1) {
+            return '显示';
+          } else {
+            return '隐藏';
+          }
+        },
+      },
+      {
         title: '是否有效',
         dataIndex: 'status',
         align: 'center',
@@ -136,6 +158,19 @@
         component: 'Input',
         label: '广告账户id',
         rules: [{ required: true, type: 'string' }],
+      },
+      {
+        field: 'allStation',
+        component: 'Select',
+        defaultValue: 0,
+        componentProps: {
+          options: [
+            { value: 1, label: '显示' },
+            { value: 0, label: '隐藏' },
+          ],
+        },
+        label: '全站数据',
+        rules: [{ required: true, type: 'number' }],
       },
       {
         field: 'status',

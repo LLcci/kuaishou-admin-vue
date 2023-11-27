@@ -3,12 +3,14 @@ declare namespace API {
     id?: string;
     user: API.KuaishouUserResult;
     accountId: number;
+    allStation: number;
     status?: number;
   };
 
   type KuaishouAccountRequest = {
     userId: API.KuaishouUserResult;
     accountId: number;
+    allStation: number;
     status?: number;
   };
 
