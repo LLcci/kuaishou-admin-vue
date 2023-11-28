@@ -20,7 +20,7 @@
     name: 'KuaishouUser',
   });
 
-  const [DynamicTable, dynamicTableInstance] = useTable();
+  const [DynamicTable, dynamicTableInstance] = useTable({ formProps: { autoSubmitOnEnter: true } });
   const [showModal] = useFormModal();
 
   type TableListItem = API.KuaishouUserResult;
