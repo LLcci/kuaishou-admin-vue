@@ -28,7 +28,7 @@ const baseMockUrl = import.meta.env.VITE_MOCK_API;
 
 const service = axios.create({
   baseURL: baseApiUrl,
-  timeout: 6000,
+  timeout: 60000,
 });
 
 service.interceptors.request.use(

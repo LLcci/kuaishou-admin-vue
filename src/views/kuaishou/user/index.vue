@@ -91,7 +91,7 @@
         },
         {
           label: '删除',
-          auth: 'sys.user.delete',
+          auth: 'kuaishou.user.delete',
           popConfirm: {
             title: '你确定要删除吗？',
             onConfirm: async () => {
