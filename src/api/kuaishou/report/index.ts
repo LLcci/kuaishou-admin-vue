@@ -8,3 +8,11 @@ export function page(query: API.ReportRequest) {
     data: query,
   });
 }
+
+export function exportXls(query: API.ReportRequest) {
+  return request({
+    url: kuaishouReportAPI.export,
+    method: 'get',
+    params: query,
+  });
+}

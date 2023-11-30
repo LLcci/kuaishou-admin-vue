@@ -36,6 +36,13 @@
           <FormItem :wrapper-col="{ span: 14, offset: 4 }">
             <Button type="primary" html-type="submit">查询</Button>
             <Button style="margin-left: 10px" @click="reset">重置</Button>
+            <Button
+              type="primary"
+              style="margin-left: 10px"
+              :loading="btnLoading"
+              @click="exportXlsData"
+              >导出</Button
+            >
           </FormItem>
         </Col>
       </Row>
@@ -94,6 +101,7 @@
 <script setup lang="ts">
   import { ref, reactive, nextTick } from 'vue';
   import dayjs from 'dayjs';
+  import * as xlsx from 'xlsx';
   import {
     Form,
     FormItem,
@@ -111,7 +119,7 @@
   import type { TableColumnsType } from 'ant-design-vue';
   import type Dayjs from 'dayjs';
   import { list } from '@/api/kuaishou/user';
-  import { page } from '@/api/kuaishou/report';
+  import { exportXls, page } from '@/api/kuaishou/report';
 
   defineOptions({
     name: 'KuaishouReport',
@@ -163,7 +171,6 @@
       limit: values.limit,
     });
     tableData.value = res.list;
-    console.log('🚀 ~ file: index.vue:95 ~ onFinish ~ tableData.value:', tableData.value);
     searchForm.total = res.pagination.total;
     await nextTick();
     loading.value = false;
@@ -171,11 +178,6 @@
   onFinish(searchForm);
 
   function onChange(page: number, pageSize: number) {
-    console.log(
-      '🚀 ~ file: index.vue:174 ~ onChange ~ page:number, pageSize:number:',
-      page,
-      pageSize,
-    );
     searchForm.page = page;
     searchForm.limit = pageSize;
     onFinish(searchForm);
@@ -234,6 +236,41 @@
       },
     ];
     return columns;
+  }
+
+  const btnLoading = ref(false);
+  async function exportXlsData() {
+    btnLoading.value = true;
+    const beginDate = searchForm.date ? dayjs(searchForm.date[0]).format('YYYY-MM-DD') : undefined;
+    const endDate = searchForm.date ? dayjs(searchForm.date[1]).format('YYYY-MM-DD') : undefined;
+    const { data, list } = await exportXls({
+      userId: searchForm.userId,
+      beginDate,
+      endDate,
+      page: searchForm.page,
+      limit: searchForm.limit,
+    });
+    const worksheet = xlsx.utils.aoa_to_sheet(data);
+    const workbook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    if (!worksheet['!merges']) {
+      worksheet['!merges'] = [];
+    }
+    let startCol = 0;
+    for (const userIndex in list) {
+      const length = list[userIndex].accountList.length;
+      const totalCol = startCol + 2 + length;
+      worksheet['!merges'].push({ s: { r: startCol, c: 0 }, e: { r: startCol, c: 7 } });
+      worksheet['!merges'].push({ s: { r: totalCol, c: 0 }, e: { r: totalCol, c: 1 } });
+      startCol = 2 + length + 1 + 2 + startCol;
+    }
+    xlsx.writeFileXLSX(
+      workbook,
+      `${searchForm.userId ? `${searchForm.userId}-` : ''}财务报表${
+        beginDate || endDate ? `${beginDate}-${endDate}` : ''
+      }.xlsx`,
+    );
+    btnLoading.value = false;
   }
 </script>
 <style lang="less" scoped></style>
