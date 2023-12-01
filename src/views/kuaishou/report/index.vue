@@ -30,7 +30,7 @@
         </Col>
         <Col :span="8">
           <FormItem :wrapper-col="{ span: 14, offset: 4 }">
-            <Button type="primary" html-type="submit">查询</Button>
+            <Button type="primary" html-type="submit" :loading="loading">查询</Button>
             <Button style="margin-left: 10px" @click="reset">重置</Button>
             <Button
               type="primary"
@@ -167,7 +167,7 @@
     await nextTick();
     loading.value = false;
   }
-  onFinish(searchForm);
+  // onFinish(searchForm);
 
   function onChange(page: number, pageSize: number) {
     searchForm.page = page;
