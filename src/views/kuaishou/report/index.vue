@@ -25,11 +25,7 @@
         </Col>
         <Col :span="8">
           <FormItem label="时间范围" name="date">
-            <RangePicker
-              v-model:value="searchForm.date"
-              :disabled-date="disabledDate"
-              format="YYYY-MM-DD"
-            />
+            <RangePicker v-model:value="searchForm.date" format="YYYY-MM-DD" />
           </FormItem>
         </Col>
         <Col :span="8">
@@ -72,7 +68,7 @@
                     item.total.t30GMV
                   }}</TableSummaryCell>
                   <TableSummaryCell :style="{ textAlign: 'center' }">{{
-                    item.total.roi == 'NaN' ? 0 : item.total.roi
+                    item.total.roi == 'NaN' || item.total.roi == 'Infinity' ? 0 : item.total.roi
                   }}</TableSummaryCell>
                   <TableSummaryCell :style="{ textAlign: 'center' }">{{
                     item.total.merchantRecoFans
@@ -149,10 +145,6 @@
     );
   });
 
-  function disabledDate(current: Dayjs.Dayjs) {
-    return dayjs() <= current.add(1, 'day');
-  }
-
   function reset() {
     formRef.value?.resetFields();
   }
@@ -219,7 +211,7 @@
             dataIndex: 'roi',
             align: 'center',
             customRender: ({ record }) => {
-              return record.roi == 'NaN' ? '0' : record.roi;
+              return record.roi == 'NaN' || record.roi == 'Infinity' ? '0' : record.roi;
             },
           },
           {

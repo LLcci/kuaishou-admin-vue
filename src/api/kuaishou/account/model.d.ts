@@ -4,6 +4,7 @@ declare namespace API {
     user: API.KuaishouUserResult;
     accountId: number;
     allStation: number;
+    allStationType: number;
     status?: number;
   };
 
@@ -11,6 +12,7 @@ declare namespace API {
     userId: API.KuaishouUserResult;
     accountId: number;
     allStation: number;
+    allStationType: number;
     status?: number;
   };
 

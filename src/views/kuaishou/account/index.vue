@@ -92,6 +92,32 @@
         },
       },
       {
+        title: '全站数据类型',
+        dataIndex: 'allStationType',
+        align: 'center',
+        width: 200,
+        formItemProps: {
+          component: 'Select',
+          componentProps: {
+            options: [
+              { value: 1, label: '显示' },
+              { value: 0, label: '隐藏' },
+            ],
+          },
+        },
+        customRender: ({ record }) => {
+          if (record.allStation == 0) {
+            return '';
+          } else {
+            if (record.allStationType == 0) {
+              return '全站直播推广';
+            } else {
+              return '全站直播推广(智投版)';
+            }
+          }
+        },
+      },
+      {
         title: '是否有效',
         dataIndex: 'status',
         align: 'center',
@@ -174,6 +200,20 @@
           ],
         },
         label: '全站数据',
+        rules: [{ required: true, type: 'number' }],
+      },
+      {
+        field: 'allStationType',
+        component: 'Select',
+        defaultValue: 0,
+        vIf: (formData) => formData.formInstance.getFieldsValue().allStation == 1,
+        componentProps: {
+          options: [
+            { value: 1, label: '全站直播推广(智投版)' },
+            { value: 0, label: '全站直播推广' },
+          ],
+        },
+        label: '全站数据类型',
         rules: [{ required: true, type: 'number' }],
       },
       {
