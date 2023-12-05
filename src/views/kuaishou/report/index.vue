@@ -68,7 +68,9 @@
                     item.total.t30GMV
                   }}</TableSummaryCell>
                   <TableSummaryCell :style="{ textAlign: 'center' }">{{
-                    item.total.roi == 'NaN' || item.total.roi == 'Infinity' ? 0 : item.total.roi
+                    item.total.roi == 'NaN' || item.total.roi == 'Infinity' || !item.total.roi
+                      ? 0
+                      : item.total.roi
                   }}</TableSummaryCell>
                   <TableSummaryCell :style="{ textAlign: 'center' }">{{
                     item.total.merchantRecoFans
@@ -211,7 +213,9 @@
             dataIndex: 'roi',
             align: 'center',
             customRender: ({ record }) => {
-              return record.roi == 'NaN' || record.roi == 'Infinity' ? '0' : record.roi;
+              return record.roi == 'NaN' || record.roi == 'Infinity' || !record.roi
+                ? '0'
+                : record.roi;
             },
           },
           {
