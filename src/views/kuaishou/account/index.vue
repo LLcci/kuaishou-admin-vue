@@ -140,6 +140,13 @@
         },
       },
       {
+        title: '排序',
+        dataIndex: 'sort',
+        align: 'center',
+        width: 200,
+        hideInSearch: true,
+      },
+      {
         title: '操作',
         width: 230,
         dataIndex: 'ACTION',
@@ -227,6 +234,13 @@
           ],
         },
         label: '是否有效',
+        rules: [{ required: true, type: 'number' }],
+      },
+      {
+        field: 'sort',
+        component: 'InputNumber',
+        defaultValue: 0,
+        label: '排序',
         rules: [{ required: true, type: 'number' }],
       },
     ];

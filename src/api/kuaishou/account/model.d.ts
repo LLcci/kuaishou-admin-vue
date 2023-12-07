@@ -6,6 +6,7 @@ declare namespace API {
     allStation: number;
     allStationType: number;
     status?: number;
+    sort?: number;
   };
 
   type KuaishouAccountRequest = {
@@ -14,6 +15,7 @@ declare namespace API {
     allStation: number;
     allStationType: number;
     status?: number;
+    sort?: number;
   };
 
   type KuaishouAccountListResult = KuaishouAccountResult[];
