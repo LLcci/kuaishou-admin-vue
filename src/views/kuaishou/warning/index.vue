@@ -51,7 +51,7 @@
               ]"
               option-filter-prop="label"
               allow-clear
-              placeholder="请选择快手名称"
+              placeholder="是否启用"
             />
           </FormItem>
         </Col>
