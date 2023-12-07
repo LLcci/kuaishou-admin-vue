@@ -4,6 +4,7 @@ export const account = {
   page: 'kuaishou/account/page',
   update: 'kuaishou/account/update',
   delete: 'kuaishou/account/delete',
+  list: 'kuaishou/account/list',
 } as const;
 
 export const values = Object.values(account);

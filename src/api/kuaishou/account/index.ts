@@ -40,3 +40,11 @@ export function remove(id: string) {
     data: { id },
   });
 }
+
+export function list(userId?: string) {
+  return request({
+    url: kuaishouAccountAPI.list,
+    method: 'get',
+    params: { userId },
+  });
+}
