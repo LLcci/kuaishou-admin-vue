@@ -55,17 +55,17 @@
             >
               <template #bodyCell="{ record, column }">
                 <template v-if="column.dataIndex === 'balance'">
-                  <span
+                  <Tag
                     v-if="
                       record.accountId != '全站' &&
                       record.realBudget != 0 &&
                       record.costTotal >= record.realBudget * 0.9 &&
                       record.date == dayjs().format('YYYY-MM-DD')
                     "
-                    class="color-red"
-                    >{{ record.balance }}</span
+                    color="#f50"
+                    >{{ record.balance }}</Tag
                   >
-                  <span v-else>{{ record.balance }}</span>
+                  <div v-else>{{ record.balance }}</div>
                 </template>
               </template>
               <template #summary>
@@ -128,6 +128,7 @@
     TableSummaryRow,
     TableSummaryCell,
     Pagination,
+    Tag,
   } from 'ant-design-vue';
   import type { TableColumnsType } from 'ant-design-vue';
   import type Dayjs from 'dayjs';
