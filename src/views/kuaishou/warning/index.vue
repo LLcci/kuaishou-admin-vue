@@ -66,13 +66,33 @@
     <div class="bg-white dark:bg-black mb-16px !pt-24px pr-24px pb-24px pl-24px">
       <Row :gutter="[0, 16]">
         <Col :span="24" class="text-right">
+          <Button :icon="h(PlusOutlined)" type="primary" @click="modalRef.openModel()">新增</Button>
           <Button
-            :icon="h(PlusOutlined)"
+            class="ml-10px"
             type="primary"
-            html-type="submit"
-            :loading="loading"
-            @click="modalRef.openModel()"
-            >新增</Button
+            :disabled="selectedRowKeys.length === 0"
+            :loading="enableLoading"
+            @click="multipleSelectEnable"
+            >启用</Button
+          >
+          <Button
+            class="ml-10px"
+            type="primary"
+            ghost
+            danger
+            :disabled="selectedRowKeys.length === 0"
+            :loading="enableLoading"
+            @click="multipleSelectDisable"
+            >停用</Button
+          >
+          <Button
+            class="ml-10px"
+            type="primary"
+            :loading="deleteLoading"
+            :disabled="selectedRowKeys.length === 0"
+            danger
+            @click="multipleSelectDelete"
+            >删除</Button
           >
         </Col>
         <Col :span="24">
@@ -86,6 +106,8 @@
               pageSize: searchForm.limit,
               showTotal: (total) => `共 ${total} 条数据`,
             }"
+            row-key="id"
+            :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
             bordered
             @change="onChange"
           >
@@ -267,6 +289,29 @@
     } finally {
       deleteLoading.value = false;
     }
+  }
+
+  const selectedRowKeys = ref<any[]>([]);
+  const onSelectChange = (keys: string[]) => {
+    selectedRowKeys.value = keys;
+  };
+
+  function multipleSelectEnable() {
+    selectedRowKeys.value.forEach((id) => {
+      onEnable(id);
+    });
+  }
+
+  function multipleSelectDisable() {
+    selectedRowKeys.value.forEach((id) => {
+      onDisable(id);
+    });
+  }
+
+  function multipleSelectDelete() {
+    selectedRowKeys.value.forEach((id) => {
+      onDelete(id);
+    });
   }
 </script>
 <style lang="less" scoped></style>
