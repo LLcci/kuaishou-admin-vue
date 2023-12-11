@@ -53,6 +53,21 @@
               :pagination="false"
               bordered
             >
+              <template #bodyCell="{ record, column }">
+                <template v-if="column.dataIndex === 'balance'">
+                  <span
+                    v-if="
+                      record.accountId != '全站' &&
+                      record.realBudget != 0 &&
+                      record.costTotal >= record.realBudget * 0.9 &&
+                      record.date == dayjs().format('YYYY-MM-DD')
+                    "
+                    class="color-red"
+                    >{{ record.balance }}</span
+                  >
+                  <span v-else>{{ record.balance }}</span>
+                </template>
+              </template>
               <template #summary>
                 <TableSummaryRow>
                   <TableSummaryCell :style="{ textAlign: 'center' }" :col-span="2"
