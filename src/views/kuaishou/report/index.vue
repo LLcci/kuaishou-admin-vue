@@ -173,17 +173,22 @@
     loading.value = true;
     const beginDate = values.date ? dayjs(values.date[0]).format('YYYY-MM-DD') : undefined;
     const endDate = values.date ? dayjs(values.date[1]).format('YYYY-MM-DD') : undefined;
-    const res = await page({
-      userId: values.userId,
-      beginDate,
-      endDate,
-      page: values.page,
-      limit: values.limit,
-    });
-    tableData.value = res.list;
-    searchForm.total = res.pagination.total;
-    await nextTick();
-    loading.value = false;
+    try {
+      const res = await page({
+        userId: values.userId,
+        beginDate,
+        endDate,
+        page: values.page,
+        limit: values.limit,
+      });
+      tableData.value = res.list;
+      searchForm.total = res.pagination.total;
+    } catch (error) {
+      console.log('🚀 ~ file: index.vue:186 ~ onFinish ~ error:', error);
+    } finally {
+      await nextTick();
+      loading.value = false;
+    }
   }
   // onFinish(searchForm);
 
