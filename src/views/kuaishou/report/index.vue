@@ -391,7 +391,7 @@
     try {
       remarkLoading.value = true;
       await remark(reamrkId.value, remarkArr.value.join(','));
-      await onFinish(searchForm);
+      // await onFinish(searchForm);
     } catch (error) {
     } finally {
       remarkLoading.value = false;
