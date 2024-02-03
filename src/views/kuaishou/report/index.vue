@@ -67,6 +67,21 @@
                   >
                   <div v-else>{{ record.balance }}</div>
                 </template>
+                <template v-if="column.dataIndex === 'remark'">
+                  <div v-if="record.remark">
+                    <a-tag
+                      v-for="tag in record.remark.split(',')"
+                      :key="tag"
+                      class="mt-8px"
+                      :color="tag.split(':')[0]"
+                    >
+                      {{ tag.split(':')[1] }}
+                    </a-tag>
+                  </div>
+                </template>
+                <template v-if="column.title === '操作'">
+                  <a-button type="primary" ghost @click="handleEdit(record)">编辑备注</a-button>
+                </template>
               </template>
               <template #summary>
                 <TableSummaryRow>
@@ -109,10 +124,43 @@
         ></Pagination>
       </div>
     </Spin>
+    <a-modal
+      v-model:open="remarkOpen"
+      :confirm-loading="remarkLoading"
+      title="备注"
+      :destroy-on-close="true"
+      @ok="handleRemarkOk"
+    >
+      <a-input-group compact>
+        <a-select v-model:value="remakTag">
+          <a-select-option value="pink"><a-tag color="pink">粉色</a-tag></a-select-option>
+          <a-select-option value="red"><a-tag color="red">红色</a-tag></a-select-option>
+          <a-select-option value="orange"><a-tag color="orange">橘色</a-tag></a-select-option>
+          <a-select-option value="green"><a-tag color="green">绿色</a-tag></a-select-option>
+          <a-select-option value="blue"><a-tag color="blue">蓝色</a-tag></a-select-option>
+          <a-select-option value="purple"><a-tag color="purple">紫色</a-tag></a-select-option>
+        </a-select>
+        <a-input v-model:value="remarkValue" placeholder="请输入备注" style="width: 50%" />
+        <a-button :icon="h(PlusCircleOutlined)" @click="handleRemarkAdd">添加</a-button>
+      </a-input-group>
+      <div class="mt">
+        <span>备注：</span>
+        <a-tag
+          v-for="(tag, index) in remarkArr"
+          :key="tag"
+          :color="tag.split(':')[0]"
+          closable
+          @close="handleRemarkRemove(index)"
+        >
+          {{ tag.split(':')[1] }}
+        </a-tag>
+      </div>
+    </a-modal>
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, reactive, nextTick } from 'vue';
+  import { ref, reactive, nextTick, h } from 'vue';
+  import { PlusCircleOutlined } from '@ant-design/icons-vue';
   import dayjs from 'dayjs';
   import * as xlsx from 'xlsx';
   import {
@@ -134,6 +182,7 @@
   import type Dayjs from 'dayjs';
   import { list } from '@/api/kuaishou/user';
   import { exportXls, page } from '@/api/kuaishou/report';
+  import { remark } from '@/api/kuaishou/account';
 
   defineOptions({
     name: 'KuaishouReport',
@@ -249,6 +298,16 @@
             dataIndex: 'balance',
             align: 'center',
           },
+          {
+            title: '备注',
+            dataIndex: 'remark',
+            align: 'center',
+            width: 150,
+          },
+          {
+            title: '操作',
+            align: 'center',
+          },
         ],
       },
     ];
@@ -289,5 +348,55 @@
     );
     btnLoading.value = false;
   }
+
+  const remarkOpen = ref(false);
+
+  const remarks = ref('');
+
+  const remarkArr = ref<string[]>([]);
+
+  const remakTag = ref('blue');
+
+  const remarkValue = ref('');
+
+  const reamrkId = ref('');
+
+  const handleEdit = (record: any) => {
+    console.log('🚀 ~ handleEdit ~ record:', record);
+    reamrkId.value = record.accountId;
+    remarkValue.value = '';
+    remarks.value = record.remark;
+    remakTag.value = 'blue';
+    remarkArr.value.length = 0;
+    if (remarks.value) {
+      remarkArr.value.push(...remarks.value.split(','));
+    }
+    remarkOpen.value = true;
+  };
+
+  const handleRemarkAdd = () => {
+    console.log('🚀 ~ remakTag:', remakTag.value);
+    console.log('🚀 ~ remark:', remarkValue.value);
+    remarkArr.value.push(`${remakTag.value}:${remarkValue.value}`);
+    console.log('🚀 ~ handleRemarkAdd ~  remarkArr.value:', remarkArr.value);
+  };
+
+  const handleRemarkRemove = (index: number) => {
+    remarkArr.value.splice(index, 1);
+    console.log('🚀 ~ handleRemarkRemove ~ remarkArr.value:', remarkArr.value);
+  };
+
+  const remarkLoading = ref(false);
+  const handleRemarkOk = async () => {
+    try {
+      remarkLoading.value = true;
+      await remark(reamrkId.value, remarkArr.value.join(','));
+      await onFinish(searchForm);
+    } catch (error) {
+    } finally {
+      remarkLoading.value = false;
+    }
+    remarkOpen.value = false;
+  };
 </script>
 <style lang="less" scoped></style>

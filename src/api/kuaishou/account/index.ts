@@ -48,3 +48,11 @@ export function list(userId?: string) {
     params: { userId },
   });
 }
+
+export function remark(id: string, remark: string) {
+  return request({
+    url: kuaishouAccountAPI.remark,
+    method: 'post',
+    data: { id, remark },
+  });
+}
