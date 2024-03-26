@@ -20,6 +20,12 @@ export const userSchemas: FormSchema<API.UpdateKuaishouUserRequest>[] = [
     rules: [{ required: true, type: 'string' }],
   },
   {
+    field: 'tianyanCookies',
+    component: 'InputTextArea',
+    label: '天眼cookies',
+    rules: [{ required: true, type: 'string' }],
+  },
+  {
     field: 'status',
     component: 'Select',
     defaultValue: 1,

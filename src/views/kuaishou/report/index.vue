@@ -109,6 +109,34 @@
                     item.total.balance
                   }}</TableSummaryCell>
                 </TableSummaryRow>
+                <TableSummaryRow>
+                  <TableSummaryCell :style="{ textAlign: 'center' }" :col-span="2"
+                    >磁力天眼</TableSummaryCell
+                  >
+                  <TableSummaryCell :style="{ textAlign: 'center' }">
+                    <div style="display: flex; justify-content: space-around; text-align: center">
+                      <div>{{ item.tianyan.cost }}</div>
+                      <Tag v-if="item.tianyan.cost" color="cyan"
+                        >{{ ((item.total.costTotal / item.tianyan.cost) * 100).toFixed(2) }}%</Tag
+                      >
+                    </div>
+                  </TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }">
+                    <div style="display: flex; justify-content: space-around; text-align: center">
+                      <div>{{
+                        item.tianyan.roi == 'NaN' ||
+                        item.tianyan.roi == 'Infinity' ||
+                        !item.tianyan.roi
+                          ? 0
+                          : item.tianyan.roi
+                      }}</div>
+                    </div>
+                  </TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
+                </TableSummaryRow>
               </template>
             </Table>
           </Col>

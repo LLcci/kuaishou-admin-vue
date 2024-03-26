@@ -53,6 +53,12 @@
       align: 'center',
     },
     {
+      title: '天眼Cookies',
+      dataIndex: 'tianyanCookies',
+      ellipsis: true,
+      align: 'center',
+    },
+    {
       title: '是否有效',
       dataIndex: 'status',
       align: 'center',

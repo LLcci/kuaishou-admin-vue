@@ -5,6 +5,7 @@ declare namespace API {
     kuaishouId: number;
     username: string;
     cookies: string;
+    tianyanCookies: string;
     status?: number;
   };
 
@@ -12,12 +13,14 @@ declare namespace API {
     kuaishouId: number;
     username: string;
     cookies: string;
+    tianyanCookies: string;
   };
 
   type UpdateKuaishouUserRequest = {
     kuaishouId: number;
     username: string;
     cookies: string;
+    tianyanCookies: string;
     status: number;
   };
   /** 用户信息列表 */
