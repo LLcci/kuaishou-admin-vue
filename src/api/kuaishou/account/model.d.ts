@@ -5,6 +5,7 @@ declare namespace API {
     accountId: number;
     allStation: number;
     allStationType: number;
+    version: number;
     status?: number;
     sort?: number;
   };
@@ -14,6 +15,7 @@ declare namespace API {
     accountId: number;
     allStation: number;
     allStationType: number;
+    version: number;
     status?: number;
     sort?: number;
   };

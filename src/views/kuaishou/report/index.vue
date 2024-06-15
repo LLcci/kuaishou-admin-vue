@@ -108,6 +108,8 @@
                   <TableSummaryCell :style="{ textAlign: 'center' }">{{
                     item.total.balance
                   }}</TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
                 </TableSummaryRow>
                 <TableSummaryRow>
                   <TableSummaryCell :style="{ textAlign: 'center' }" :col-span="2"
@@ -134,6 +136,8 @@
                       }}</div>
                     </div>
                   </TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
+                  <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
                   <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
                   <TableSummaryCell :style="{ textAlign: 'center' }"></TableSummaryCell>
                 </TableSummaryRow>

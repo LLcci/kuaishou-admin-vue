@@ -118,6 +118,28 @@
         },
       },
       {
+        title: '版本',
+        dataIndex: 'version',
+        align: 'center',
+        width: 200,
+        formItemProps: {
+          component: 'Select',
+          componentProps: {
+            options: [
+              { value: 1, label: '新版' },
+              { value: 0, label: '旧版' },
+            ],
+          },
+        },
+        customRender: ({ record }) => {
+          if (record.version == 1) {
+            return '新版';
+          } else {
+            return '旧版';
+          }
+        },
+      },
+      {
         title: '是否有效',
         dataIndex: 'status',
         align: 'center',
@@ -221,6 +243,19 @@
           ],
         },
         label: '全站数据类型',
+        rules: [{ required: true, type: 'number' }],
+      },
+      {
+        field: 'version',
+        component: 'Select',
+        defaultValue: 0,
+        componentProps: {
+          options: [
+            { value: 1, label: '新版' },
+            { value: 0, label: '旧版' },
+          ],
+        },
+        label: '是否有效',
         rules: [{ required: true, type: 'number' }],
       },
       {
