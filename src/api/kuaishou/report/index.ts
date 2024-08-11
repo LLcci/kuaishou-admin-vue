@@ -16,3 +16,11 @@ export function exportXls(query: API.ReportRequest) {
     params: query,
   });
 }
+
+export function tianyanPage(query: API.ReportRequest) {
+  return request({
+    url: kuaishouReportAPI.tianyanPage,
+    method: 'post',
+    data: query,
+  });
+}
