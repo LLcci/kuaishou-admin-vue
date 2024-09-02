@@ -11,6 +11,7 @@
     "serve": "npm run dev",
     "dev": "vite",
     "build": "rimraf dist && cross-env NODE_ENV=production vite build",
+    "docker:build": "pnpm run build && docker compose --env-file .env.production build",
     "preview": "npm run build && vite preview",
     "preview:dist": "vite preview",
     "deploy": "bash deploy.sh",
