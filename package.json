@@ -126,7 +126,7 @@
     "node": ">=14"
   },
   "target": "web",
-  "packageManager": "^pnpm@6.32.4",
+  "packageManager": "pnpm@6.32.4",
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": [
