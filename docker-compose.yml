@@ -1,12 +1,13 @@
 version: '3'
 
 services:
-  eoapi:
+  kuaishou-admin-vue:
     # 从当前路径构建镜像
     build:
       context: .
       dockerfile: Dockerfile
-      target: production
-    image: buqiyuan/vue3-antdv-admin:latest
-    env_file:
-      - .env
+    image: kuaishou-admin-vue
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 80:80
